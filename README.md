@@ -11,6 +11,7 @@ heapify function: This function takes an array arr, the size of the heap n, and 
 
 
         def heapify(arr, n, i):
+        
             largest = i
             left_child = 2 * i + 1
             right_child = 2 * i + 2
@@ -47,6 +48,7 @@ ix) heapify(arr, n, largest): Recursively call the heapify function on the subtr
 
 
         def heap_sort(arr):
+        
             n = len(arr)
     
             for i in range(n // 2 - 1, -1, -1):
@@ -74,6 +76,17 @@ vii) heapify(arr, i, 0): After swapping, the heapify function is called on the r
 # Hamiltonian Cycle
 <h3><b>Function explanation:<br></b></h3>
 <h4><b>1) is_valid:</b></h4>
+
+
+        def is_valid(v, pos, path, graph):
+            
+            if not graph[path[pos - 1]][v]:
+                return False
+
+            if v in path:
+                return False
+
+            return True        
 i) Here, the function takes four arguments: v (the current vertex being considered), pos (the current position in the path), path (the path being constructed), and graph (the graph's adjacency matrix).
 
 ii) The first condition checks if there is an edge between the last vertex in the path (path[pos - 1]) and the current vertex v. If graph[path[pos - 1]][v] is 1, it means there's an edge, and the condition is satisfied. If it's not 1, it means there's no edge, so the function returns False, indicating that adding vertex v to the path at the current position is not valid.
@@ -105,7 +118,7 @@ If the recursive call returns True, it means that a valid Hamiltonian Cycle has 
 If the recursive call returns False or completes without finding a cycle, the vertex v is removed from the path by setting path[pos] to -1 (backtracking).
 If no Hamiltonian Cycle is found for the current configuration of the path and graph, the function returns False.
 
-<h4><b>2) hamiltonian_cycle_util:</b></h4>
+<h4><b>3) hamiltonian_cycle:</b></h4>
 
 i)  
 
