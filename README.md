@@ -8,9 +8,26 @@ heapify function: This function takes an array arr, the size of the heap n, and 
 
 <h3><b>Function explanation:<br></b></h3>
 <h4><b>1) heapify:</b></h4>
+
+
+        def heapify(arr, n, i):
+            largest = i
+            left_child = 2 * i + 1
+            right_child = 2 * i + 2
+    
+            if left_child < n and arr[left_child] > arr[largest]:
+                largest = left_child
+    
+            if right_child < n and arr[right_child] > arr[largest]:
+                largest = right_child
+    
+            if largest != i:
+                arr[i], arr[largest] = arr[largest], arr[i]
+                heapify(arr, n, largest)
+                
 i) def heapify(arr, n, i):: This line defines the heapify function, which takes the array arr, the size of the heap n, and the index i as arguments.
 
-<br>ii) largest = i: Initialize a variable largest with the value of the current index i. This will be used to track the index of the largest element among the parent and its two children.
+ii) largest = i: Initialize a variable largest with the value of the current index i. This will be used to track the index of the largest element among the parent and its two children.
 
 iii) left_child = 2 * i + 1: Calculate the index of the left child of the current parent index i.
 
@@ -26,7 +43,18 @@ viii) arr[i], arr[largest] = arr[largest], arr[i]: Swap the element at the curre
 
 ix) heapify(arr, n, largest): Recursively call the heapify function on the subtree rooted at the largest index. This ensures that the subtree also maintains the max heap property.
 
-<h4><b>2) heapify:</b></h4>
+<h4><b>2) heap_sort:</b></h4>
+
+
+        def heap_sort(arr):
+            n = len(arr)
+    
+            for i in range(n // 2 - 1, -1, -1):
+                heapify(arr, n, i)
+    
+            for i in range(n - 1, 0, -1):
+                arr[i], arr[0] = arr[0], arr[i] 
+                heapify(arr, i, 0)  
 
 i) def heap_sort(arr):: This line defines the heap_sort function that takes an array arr as an argument.
 
@@ -54,7 +82,7 @@ iii) The second condition checks whether the current vertex v is already present
 
 iv) If both conditions above are not met, it means that adding vertex v to the path at the current position is valid. Therefore, the function returns True.
 
-<h4><b>1) hamiltonian_cycle_util:</b></h4>
+<h4><b>2) hamiltonian_cycle_util:</b></h4>
 
 i) The hamiltonian_cycle_util function takes three arguments: graph (the graph's adjacency matrix), path (the current path being constructed), and pos (the current position in the path).
 
@@ -76,6 +104,37 @@ If the recursive call returns True, it means that a valid Hamiltonian Cycle has 
 
 If the recursive call returns False or completes without finding a cycle, the vertex v is removed from the path by setting path[pos] to -1 (backtracking).
 If no Hamiltonian Cycle is found for the current configuration of the path and graph, the function returns False.
+
+<h4><b>2) hamiltonian_cycle_util:</b></h4>
+
+i)  
+
+        path = [-1] * len(graph)
+        path[0] = 0
+
+Here, the path list is initialized. It will hold the vertices of the Hamiltonian Cycle being constructed. The length of the path list is set to match the number of vertices in the graph. The starting vertex (vertex 0) is placed at the beginning of the path.
+
+ii) 
+
+
+        if not hamiltonian_cycle_util(graph, path, 1):
+                print("No Hamiltonian Cycle exists")
+        return False
+
+This part of the code uses the hamiltonian_cycle_util function to attempt to find a Hamiltonian Cycle. The hamiltonian_cycle_util function starts building the path from position 1 (pos = 1), as the starting vertex is already in place (path[0] = 0).
+
+If the hamiltonian_cycle_util function returns False, it means that no Hamiltonian Cycle could be found starting from the current configuration. In that case, the function prints a message indicating that no Hamiltonian Cycle exists and returns False.
+
+iii)
+
+
+        print("Hamiltonian Cycle exists:")
+        for vertex in path:
+                print(vertex, end=" ")
+        print(path[0])
+
+If the hamiltonian_cycle_util function returns True, it means a Hamiltonian Cycle has been found. The code prints a message indicating that a Hamiltonian Cycle exists and then prints the vertices of the cycle. The loop iterates over each vertex in the path list and prints it. Finally, the first vertex (starting vertex) is printed again to complete the cycle.
+
 
 
 
