@@ -41,4 +41,52 @@ v) for i in range(n - 1, 0, -1):: This second for loop iterates in reverse order
 vi) arr[i], arr[0] = arr[0], arr[i]: Inside the loop, this line swaps the maximum element (root of the max heap) with the current last element of the heap. This effectively places the maximum element in its correct sorted position at the end of the array.
 
 vii) heapify(arr, i, 0): After swapping, the heapify function is called on the reduced heap, excluding the element that has been moved to its sorted position. This maintains the max heap property on the remaining elements of the heap.
+<hr>
+
+# Hamiltonian Cycle
+<h3><b>Function explanation:<br></b></h3>
+<h4><b>1) is_valid:</b></h4>
+i) Here, the function takes four arguments: v (the current vertex being considered), pos (the current position in the path), path (the path being constructed), and graph (the graph's adjacency matrix).
+
+ii) The first condition checks if there is an edge between the last vertex in the path (path[pos - 1]) and the current vertex v. If graph[path[pos - 1]][v] is 1, it means there's an edge, and the condition is satisfied. If it's not 1, it means there's no edge, so the function returns False, indicating that adding vertex v to the path at the current position is not valid.
+
+iii) The second condition checks whether the current vertex v is already present in the path. The in keyword checks if v is a member of the path list. If it is, it means that adding v would create a duplicate in the path, which is not allowed for a Hamiltonian Cycle. In this case, the function returns False.
+
+iv) If both conditions above are not met, it means that adding vertex v to the path at the current position is valid. Therefore, the function returns True.
+
+<h4><b>1) hamiltonian_cycle_util:</b></h4>
+
+i) The hamiltonian_cycle_util function takes three arguments: graph (the graph's adjacency matrix), path (the current path being constructed), and pos (the current position in the path).
+
+ii) The first condition checks if pos has reached the length of the graph. If it has, it means that all vertices have been visited, and it's time to check if a Hamiltonian Cycle exists. To do this, the function checks if there's an edge from the last vertex in the path (path[pos - 1]) back to the starting vertex (path[0]). If this edge exists (i.e., graph[path[pos - 1]][path[0]] is 1), then a valid cycle has been formed, and the function returns True. If there's no edge between the last and starting vertices, it returns False, indicating that no Hamiltonian Cycle exists.
+
+iii)  
+        
+      for v in range(1, len(graph)):
+        if is_valid(v, pos, path, graph):
+            path[pos] = v
+            if hamiltonian_cycle_util(graph, path, pos + 1):
+                return True
+            path[pos] = -1
+      return False
+      
+This part of the function is responsible for attempting to add the next vertex to the path. It iterates over all vertices (excluding the starting vertex, which is always at index 0) and checks if adding each vertex v to the path is valid according to the is_valid function. If adding v is valid, it sets path[pos] to v and makes a recursive call to hamiltonian_cycle_util with an incremented position pos + 1.
+
+If the recursive call returns True, it means that a valid Hamiltonian Cycle has been found, and the function immediately returns True.
+
+If the recursive call returns False or completes without finding a cycle, the vertex v is removed from the path by setting path[pos] to -1 (backtracking).
+If no Hamiltonian Cycle is found for the current configuration of the path and graph, the function returns False.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
